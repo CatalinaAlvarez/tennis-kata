@@ -13,18 +13,33 @@ public class TennisGame3 implements TennisGame {
 
     public String getScore() {
         String s;
-        if (scorePlayer1 < 4 && scorePlayer2 < 4 && !(scorePlayer1 + scorePlayer2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-            s = p[scorePlayer1];
-            return (scorePlayer1 == scorePlayer2) ? s + "-All" : s + "-" + p[scorePlayer2];
-        } else {
-            if (scorePlayer1 == scorePlayer2)
+        if (scoreIsLowerThan4())
+            return lowerThan4();
+        else if (scorePlayer1 == scorePlayer2)
                 return "Deuce";
-            s = scorePlayer1 > scorePlayer2 ? player1Name : player2Name;
-            return ((scorePlayer1 - scorePlayer2)*(scorePlayer1 - scorePlayer2) == 1) ? "Advantage " + s : "Win for " + s;
+        else{
+            return greaterThan4();
         }
     }
-    
+
+    private boolean scoreIsLowerThan4() {
+        return scorePlayer1 < 4 && scorePlayer2 < 4 && scorePlayer1 + scorePlayer2 != 6;
+    }
+
+
+    private String greaterThan4() {
+        String s;
+        s = scorePlayer1 > scorePlayer2 ? player1Name : player2Name;
+        return ((scorePlayer1 - scorePlayer2)*(scorePlayer1 - scorePlayer2) == 1) ? "Advantage " + s : "Win for " + s;
+    }
+
+    private String lowerThan4() {
+        String s;
+        String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+        s = p[scorePlayer1];
+        return (scorePlayer1 == scorePlayer2) ? s + "-All" : s + "-" + p[scorePlayer2];
+    }
+
     public void wonPoint(String playerName) {
         if (playerName.equals(player1Name))
             this.scorePlayer1 ++;
