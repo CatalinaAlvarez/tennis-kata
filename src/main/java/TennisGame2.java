@@ -19,6 +19,10 @@ public class TennisGame2 implements TennisGame
         if (p1Point == p2Point)
             score = equalScore();
 
+        else if (p1Point >= 4 || p2Point >=4)
+            score = scoreGreaterThan4();
+
+
         
         if (p1Point > 0 && p2Point ==0)
         {
@@ -69,25 +73,8 @@ public class TennisGame2 implements TennisGame
                 p1Res ="Thirty";
             score = p1Res + "-" + p2Res; //Caso diferente menor a 4
         }
-        
-        if (p1Point > p2Point && p2Point >= 3)
-        {
-            score = "Advantage player1";
-        }
-        
-        if (p2Point > p1Point && p1Point >= 3)
-        {
-            score = "Advantage player2";
-        }
-        
-        if (p1Point >=4 && p2Point >=0 && (p1Point - p2Point)>=2)
-        {
-            score = "Win for player1";
-        }
-        if (p2Point >=4 && p1Point >=0 && (p2Point - p1Point)>=2) //caso advantage or win
-        {
-            score = "Win for player2";
-        }
+
+
         return score;
     }
 
@@ -98,6 +85,22 @@ public class TennisGame2 implements TennisGame
             case 2: return "Thirty-All";
             default: return "Deuce";
         }
+    }
+
+    private String scoreGreaterThan4() {
+        int minusResult = p1Point - p2Point;
+        switch(minusResult){
+            case 1: case -1: return advantageScore(minusResult);
+            default: return winScore(minusResult);
+        }
+    }
+
+    private String advantageScore(int minusResult){
+        return minusResult ==1 ? "Advantage player1" : "Advantage player2";
+    }
+
+    private String winScore(int minusResult){
+        return minusResult >= 2 ? "Win for player1": "Win for player2";
     }
 
 
