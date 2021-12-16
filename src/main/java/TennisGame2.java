@@ -44,11 +44,11 @@ public class TennisGame2 implements TennisGame
     }
 
     private String advantageScore(int minusResult){
-        return minusResult ==1 ? "Advantage player1" : "Advantage player2";
+        return minusResult ==1 ? "Advantage ".concat(player1Name) : "Advantage ".concat(player2Name);
     }
 
     private String winScore(int minusResult){
-        return minusResult >= 2 ? "Win for player1": "Win for player2";
+        return minusResult >= 2 ? "Win for ".concat(player1Name): "Win for ".concat(player2Name);
     }
 
     private String differentScore(int scorePlayer) {
